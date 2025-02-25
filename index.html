@@ -1,5 +1,4 @@
-Newest
-<!DOCTYPE html>
+old modified<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,73 +104,54 @@ Newest
             border-radius: 5px;
             transition: background-color 0.3s;
         }
-        /* ABAB/BABA Pattern Colors */
-        .coordinates .color-a { background-color: #2b2b2b; } /* Color A */
-        .coordinates .color-b { background-color: #3d3d3d; } /* Color B */
-        /* Hover effect for coordinates */
+        .coordinates .odd { background-color: #2b2b2b; }
+        .coordinates .even { background-color: #3d3d3d; }
         .coordinates div:hover { background-color: #505050; }
-        /* Button styles */
         button {
             width: auto;
-            padding: 10px 20px; /* Uniform padding for all buttons */
+            padding: 10px 20px;
             background-color: #ffd700;
             color: #0a1e39;
             font-weight: bold;
             border: none;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            margin: 5px auto;
-            display: inline-block;
+            margin: 10px auto;
+            display: block;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
-        /* Button hover effects */
         button:hover {
             background-color: #e6b800;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
         }
-        /* Button container styles */
-        .button-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        /* Hidden game mode buttons */
         .game-mode-buttons {
-            display: flex;
+            display: none;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
         }
-        /* Individual game mode button styles */
         .game-mode-buttons button {
             width: 120px;
         }
-        /* Weapon spawn cell border */
         .weapon-spawn {
-            border: 3px solid gold;
+            border: 3px solid gold; 
         }
-        /* Respawn point styles */
-.respawn-point {
-    position: relative;
-    border: 0px solid white; /* White border for visibility */
-    background-color: #1a2a3a; /* Default background color for non-Stronghold modes */
-}
-/* Initial state for buttons */
-        #randomise-button {
-            display: inline-block;
-        }
-        #re-roll-buttons {
-            display: none;
+        @media only screen and (max-width: 600px) {
+            th, td { width: 30px; height: 30px; }
+            table { width: 240px; }
+            .scenario-heading { font-size: 1.5em; }
+            .item-spawn { font-size: 1.2em; }
+            .coordinates { gap: 20px; margin-bottom: 10px; }
+            button { bottom: 10px; padding: 10px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>
-            <img src="https://halo.wiki.gallery/images/thumb/0/08/HFP_Logo.png/1200px-HFP_Logo.png" alt="Halo Flashpoint Logo" class="logo"><br>
-            <span class="subtitle">Quick Setup</span>
-        </h1>
+<div class="container">
+    <h1>
+        <img src="https://halo.wiki.gallery/images/thumb/0/08/HFP_Logo.png/1200px-HFP_Logo.png" alt="Halo Flashpoint Logo" class="logo"><br>
+        <span class="subtitle">Quick Setup</span>
+     </h1>
         <p id="gameMode"></p>
         <table id="data-table"></table>
         <p id="coords"></p>
@@ -200,32 +180,38 @@ Newest
         </div>
     </div>
     <script>
-        // Constants for grid size and item count
-        const gridSize = 8; // Size of the grid (8x8)
-        const itemsToPick = 8; // Number of items to pick
+    const gridSize = 8;
+    const itemsToPick = 8;
 
-        // Shuffles an array multiple times to ensure randomness
-        function shuffleArray(array, iterations = 3) {
-            for (let k = 0; k < iterations; k++) {
-                for (let i = array.length - 1; i >= 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function generateGrid(size) {
+        const grid = [];
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                grid.push([i, j]);
             }
         }
+        return grid;
+    }
 
-        // Generates a grid of coordinates based on the given size
-        function generateGrid(size) {
-            const grid = [];
-            for (let i = 0; i < size; i++) {
-                for (let j = 0; j < size; j++) {
-                    grid.push([i, j]);
-                }
-            }
-            return grid;
+    function convertCoordinates(grid, items) {
+        let coordsString1 = "", coordsString2 = "";
+        for (let i = 0; i < Math.ceil(items / 2); i++) {
+            coordsString1 += `<div class='odd'>${grid[i][1] + 1},${grid[i][0] + 1}</div>`;
         }
+        for (let i = Math.ceil(items / 2); i < items; i++) {
+            coordsString2 += `<div class='even'>${grid[i][1] + 1},${grid[i][0] + 1}</div>`;
+        }
+        return { coordsString1, coordsString2 };
+    }
 
-        // Converts grid coordinates into HTML strings with alternating ABAB/BABA patterns
+          // Converts grid coordinates into HTML strings with alternating ABAB/BABA patterns
         function convertCoordinates(grid, items) {
             let coordsString1 = "", coordsString2 = "";
             for (let i = 0; i < Math.ceil(items / 2); i++) {
@@ -253,6 +239,31 @@ Newest
             }
             return " ";
         }
+
+
+    function generateTable(grid, size, items, mode) {
+        const table = document.getElementById('data-table');
+        table.innerHTML = "";
+        for (let i = size - 1; i >= 0; i--) {
+            const newRow = table.insertRow(-1);
+            newRow.insertCell(0).outerHTML = `<td class='header-cell'>&nbsp;&nbsp;&nbsp;${i + 1}&nbsp;&nbsp;&nbsp;</td>`;
+            for (let j = 0; j < size; j++) {
+                const cellContent = cellValue(grid, i, j, items);
+                const cell = newRow.insertCell(j + 1);
+                cell.innerHTML = cellContent;
+
+                if (mode === "Slayer") {
+                    applySlayerColors(cell, i, j);
+                }
+            }
+        }
+        const newRow = table.insertRow(-1);
+        newRow.classList.add('last-row');
+        newRow.insertCell(0).outerHTML = "<th class='header-cell'> </th>";
+        for (let i = 1; i <= size; i++) {
+            newRow.insertCell(i).outerHTML = `<th class='header-cell'>&nbsp;&nbsp;&nbsp;${i}&nbsp;&nbsp;&nbsp;</th>`;
+        }
+    }
 
             // Applies visual styles for the Slayer game mode
 function applySlayerColors(cell, row, col) {
@@ -418,67 +429,17 @@ function applyStrongholdColors(cell, row, col) {
         setChevronDirection(cell, row, col); // Set chevron direction
     }
 }
-       // Function to set the chevron direction based on the cell's position
-function setChevronDirection(cell, row, col) {
-    let rotationAngle = 0;
 
-    // Determine rotation angle based on column and row
-    if (col === 0) {
-        rotationAngle = 90; // Point right (base aligns with left border)
-    } else if (col === 7) {
-        rotationAngle = -90; // Point left (base aligns with right border)
-    } else if (row === 0) {
-        rotationAngle = 0; // Point up (base aligns with bottom border)
-    } else if (row === 7) {
-        rotationAngle = 180; // Point down (base aligns with top border)
-    }
+    function randomiseGridAndMode() {
+        const grid = generateGrid(gridSize);
+        shuffleArray(grid);
+        const { coordsString1, coordsString2 } = convertCoordinates(grid, itemsToPick);
+        document.getElementById('coords').innerHTML = `
+            <p class='item-spawn'>Item Spawn Location</p>
+            <div class='coordinates'>${coordsString1}</div>
+            <div class='coordinates'>${coordsString2}</div>
+        `;
 
-    // Apply the rotation to the chevron
-    cell.style.setProperty('--chevron-rotation', `${rotationAngle}deg`);
-}
-
-        // Generates a table with grid data and applies game mode-specific styles
-        function generateTable(grid, size, items, mode) {
-        const table = document.getElementById('data-table');
-        table.innerHTML = "";
-        for (let i = size - 1; i >= 0; i--) {
-            const newRow = table.insertRow(-1);
-            newRow.insertCell(0).outerHTML = `<td class='header-cell'>&nbsp;&nbsp;&nbsp;${i + 1}&nbsp;&nbsp;&nbsp;</td>`;
-            for (let j = 0; j < size; j++) {
-                const cellContent = cellValue(grid, i, j, items);
-                const cell = newRow.insertCell(j + 1);
-                cell.innerHTML = cellContent;
-                    // Apply game mode-specific styles
-                    if (mode === "Slayer") {
-                        applySlayerColors(cell, i, j);
-                    } else if (mode === "Oddball") {
-                        applyOddballColors(cell, i, j);
-                    } else if (mode === "Capture the Flag") {
-                        applyCaptureTheFlagColors(cell, i, j);
-                    } else if (mode === "Stronghold") {
-                        applyStrongholdColors(cell, i, j);
-                    }
-                }
-            }
-            const newRow = table.insertRow(-1);
-            newRow.classList.add('last-row');
-            newRow.insertCell(0).outerHTML = "<th class='header-cell'> </th>";
-            for (let i = 1; i <= size; i++) {
-                newRow.insertCell(i).outerHTML = `<th class='header-cell'>&nbsp;&nbsp;&nbsp;${i}&nbsp;&nbsp;&nbsp;</th>`;
-            }
-        }
-
-        // Randomizes the grid and selects a random game mode
-        function randomiseGridAndMode() {
-            const grid = generateGrid(gridSize);
-            shuffleArray(grid);
-            const { coordsString1, coordsString2 } = convertCoordinates(grid, itemsToPick);
-            document.getElementById('coords').innerHTML = `
-                <p class='item-spawn'>Item Spawn Location</p>
-                <div class='coordinates'>${coordsString1}</div>
-                <div class='coordinates'>${coordsString2}</div>
-            `;
-            
             let weaponCoords;
             const gameModes = ["Oddball", "Capture the Flag", "Slayer", "Stronghold"]; // Include Stronghold
             const randomGameMode = pickRandomGameMode(gameModes);
