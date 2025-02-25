@@ -1,4 +1,5 @@
-11<!DOCTYPE html>
+12
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -87,9 +88,9 @@
             text-align: center;
             vertical-align: middle;
             table-layout: fixed;
-            width: 240px;
+            width: 24px;
             overflow: hidden;
-            margin-left: 0px;
+            margin-left: -30px;
             margin-top: 5px; 
             margin-bottom: 5px;
         }
@@ -97,8 +98,8 @@
         /* Table cell styles */
         th, td {
             border: 2px solid #4c4c4c;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             color: #ffd700;
             background-color: #1a2a3a;
             transition: background-color 0.3s, color 0.3s;
@@ -191,8 +192,8 @@
     position: absolute;
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
-    width: 30px; /* Width of the bounding box */
-    height: 30px; /* Height of the bounding box */
+    width: 100%; /* Width of the bounding box */
+    height: 100%; /* Height of the bounding box */
     background-color: var(--respawn-color, #ffffff); /* Default to white */
     clip-path: polygon(50% 60%, 0% 100%, 100% 100%); /* Triangle pointing down */
     transform: translate(-50%, -50%) rotate(var(--chevron-rotation, 0deg)); /* Rotate based on position */
