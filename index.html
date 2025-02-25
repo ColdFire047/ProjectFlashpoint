@@ -1,4 +1,5 @@
-old modified<!DOCTYPE html>
+old modified 2
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -265,181 +266,49 @@ old modified<!DOCTYPE html>
         }
     }
 
-            // Applies visual styles for the Slayer game mode
-function applySlayerColors(cell, row, col) {
-    // Blue Team Deployment Zone
-    if (row === 7 && (col >= 0 && col <= 3)) {
-        cell.style.backgroundColor = "#4682B4"; // SteelBlue
-        cell.style.color = "white";
-    }
-    // Red Team Deployment Zone
-    if (row === 0 && (col >= 4 && col <= 7)) {
-        cell.style.backgroundColor = "#FF6347"; // Tomato
-        cell.style.color = "white";
-    }
-    // Weapon Spawns
-    if ((col === 1 && row === 4) || (col === 2 && row === 2) || 
-        (col === 5 && row === 5) || (col === 6 && row === 3)) {
-        cell.classList.add('weapon-spawn');
-    }
-    // Blue Respawn Points
-    if ((col === 0 && row === 6) || (col === 3 && row === 0) || (col === 7 && row === 5)) {
-        cell.style.border = "0px solid #4682B4"; // SteelBlue
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#4682B4'); // Blue team color
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-    // Red Respawn Points
-    if ((col === 0 && row === 2) || (col === 4 && row === 7) || (col === 7 && row === 1)) {
-        cell.style.border = "0px solid #FF6347"; // Tomato
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#FF6347'); // Red team color
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-}
 
-// Applies visual styles for the Capture the Flag game mode
-function applyCaptureTheFlagColors(cell, row, col) {
-    // Blue Team Deployment Zone
-    if (row === 7) {
-        cell.style.backgroundColor = "#4682B4"; // SteelBlue
-        cell.style.color = "white";
-    }
-    // Red Team Deployment Zone
-    if (row === 0) {
-        cell.style.backgroundColor = "#FF6347"; // Tomato
-        cell.style.color = "white";
-    }
-    // Weapon Spawns
-    if ((col === 2 && row === 3) || (col === 2 && row === 5) || 
-        (col === 5 && row === 2) || (col === 5 && row === 4)) {
-        cell.classList.add('weapon-spawn');
-    }
-    // Blue Respawn Points
-    if ((col === 0 && row === 5) || (col === 7 && row === 6)) {
-        cell.style.border = "0px solid #4682B4"; // SteelBlue
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#4682B4'); // Blue team color
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-    // Red Respawn Points
-    if ((col === 0 && row === 1) || (col === 7 && row === 2)) {
-        cell.style.border = "0px solid #FF6347"; // Tomato
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#FF6347'); // Red team color
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-    // Flag Spawns
-    if (row === 6 && col === 3) { // Box 4,7
-        cell.innerHTML = "🚩";
-        cell.classList.add('blue-flag');
-    } else if (row === 1 && col === 4) { // Box 5,2
-        cell.innerHTML = "🚩";
-        cell.classList.add('red-flag');
-    }
-}
-
-// Applies visual styles for the Oddball game mode
-function applyOddballColors(cell, row, col) {
-    // Blue Team Deployment Zone
-    if ((row === 7 && (col === 0 || col === 1 || col === 2)) ||
-        (row === 6 && (col === 0 || col === 1)) ||
-        (row === 5 && col === 0)) {
-        cell.style.backgroundColor = "#4682B4"; // SteelBlue
-        cell.style.color = "white";
-    }
-    // Red Team Deployment Zone
-    if ((row === 0 && (col === 5 || col === 6 || col === 7)) ||
-        (row === 1 && (col === 6 || col === 7)) ||
-        (row === 2 && col === 7)) {
-        cell.style.backgroundColor = "#FF6347"; // Tomato
-        cell.style.color = "white";
-    }
-    // Weapon Spawns
-    if ((col === 2 && row === 2) || (col === 2 && row === 4) || 
-        (col === 4 && row === 2) || (col === 5 && row === 5)) {
-        cell.classList.add('weapon-spawn');
-    }
-    // Blue Respawn Points
-    if ((col === 0 && row === 4) || (col === 3 && row === 7)) {
-        cell.style.border = "0px solid #4682B4"; // SteelBlue
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#4682B4'); // Blue team color
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-    // Red Respawn Points
-    if ((col === 4 && row === 0) || (col === 7 && row === 3)) {
-        cell.style.border = "0px solid #FF6347"; // Tomato
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#FF6347'); // Red team color
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-    // Oddball Spawn
-    if (row === 4 && col === 4) { // Box 5,5
-        cell.innerHTML = "💀";
-        cell.classList.add('blue-flag');
-    } 
-}
-
-// Applies visual styles for the Stronghold game mode
-function applyStrongholdColors(cell, row, col) {
-    // Red Team Deployment Zone
-    if ((row === 0 && (col >= 0 && col <= 3)) || // Row 1, Columns 1–4
-        (col === 0 && (row >= 0 && row <= 3))) { // Column 1, Rows 1–4
-        cell.style.backgroundColor = "#FF6347"; // Tomato (Red Team)
-        cell.style.color = "white";
-    }
-    // Blue Team Deployment Zone (Diagonally Symmetrical)
-    if ((row === 7 && (col >= 4 && col <= 7)) || // Row 8, Columns 5–8
-        (col === 7 && (row >= 4 && row <= 7))) { // Column 8, Rows 5–8
-        cell.style.backgroundColor = "#4682B4"; // SteelBlue (Blue Team)
-        cell.style.color = "white";
-    }
-
-    // Weapon Spawns
-            if ((col === 1 && row === 5) || (col === 2 && row === 6) ||
-                (col === 4 && row === 2) || (col === 5 && row === 3)) {
-                cell.classList.add('weapon-spawn'); // Gold border for weapons
+        // Generates a table with grid data and applies game mode-specific styles
+        function generateTable(grid, size, items, mode) {
+        const table = document.getElementById('data-table');
+        table.innerHTML = "";
+        for (let i = size - 1; i >= 0; i--) {
+            const newRow = table.insertRow(-1);
+            newRow.insertCell(0).outerHTML = `<td class='header-cell'>&nbsp;&nbsp;&nbsp;${i + 1}&nbsp;&nbsp;&nbsp;</td>`;
+            for (let j = 0; j < size; j++) {
+                const cellContent = cellValue(grid, i, j, items);
+                const cell = newRow.insertCell(j + 1);
+                cell.innerHTML = cellContent;
+                    // Apply game mode-specific styles
+                    if (mode === "Slayer") {
+                        applySlayerColors(cell, i, j);
+                    } else if (mode === "Oddball") {
+                        applyOddballColors(cell, i, j);
+                    } else if (mode === "Capture the Flag") {
+                        applyCaptureTheFlagColors(cell, i, j);
+                    } else if (mode === "Stronghold") {
+                        applyStrongholdColors(cell, i, j);
+                    }
+                }
             }
+            const newRow = table.insertRow(-1);
+            newRow.classList.add('last-row');
+            newRow.insertCell(0).outerHTML = "<th class='header-cell'> </th>";
+            for (let i = 1; i <= size; i++) {
+                newRow.insertCell(i).outerHTML = `<th class='header-cell'>&nbsp;&nbsp;&nbsp;${i}&nbsp;&nbsp;&nbsp;</th>`;
+            }
+        }
 
-    // Objective Points
-    if ((col === 0 && row === 7) || (col === 3 && row === 4) ||
-        (col === 6 && row === 1)) {
-        cell.innerHTML = "O"; // Denote objective points with "O"
-        cell.style.color = "#FFD700"; // Gold color
-        cell.style.fontWeight = "bold";
-        cell.style.fontSize = "24px"; // Larger font size
-    }
-
-   // Blue Respawn Points (White Square)
-     if ((col === 5 && row === 7) || (col === 7 && row === 6)) {
-        cell.style.border = "0px solid white"; // White border
-        cell.style.backgroundColor = "#4682B4"; // SteelBlue (Blue Team)
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#ffffff'); // White for Stronghold
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-
-     // Red Respawn Points (White Square)
-     if ((col === 0 && row === 2) || (col === 2 && row === 0)) {
-        cell.style.border = "0px solid white"; // White border
-        cell.style.backgroundColor = "#FF6347"; // Tomato (Red Team)
-        cell.classList.add('respawn-point'); // Add chevron style
-        cell.style.setProperty('--respawn-color', '#ffffff'); // White for Stronghold
-        setChevronDirection(cell, row, col); // Set chevron direction
-    }
-}
-
-    function randomiseGridAndMode() {
-        const grid = generateGrid(gridSize);
-        shuffleArray(grid);
-        const { coordsString1, coordsString2 } = convertCoordinates(grid, itemsToPick);
-        document.getElementById('coords').innerHTML = `
-            <p class='item-spawn'>Item Spawn Location</p>
-            <div class='coordinates'>${coordsString1}</div>
-            <div class='coordinates'>${coordsString2}</div>
-        `;
-
+        // Randomizes the grid and selects a random game mode
+        function randomiseGridAndMode() {
+            const grid = generateGrid(gridSize);
+            shuffleArray(grid);
+            const { coordsString1, coordsString2 } = convertCoordinates(grid, itemsToPick);
+            document.getElementById('coords').innerHTML = `
+                <p class='item-spawn'>Item Spawn Location</p>
+                <div class='coordinates'>${coordsString1}</div>
+                <div class='coordinates'>${coordsString2}</div>
+            `;
+            
             let weaponCoords;
             const gameModes = ["Oddball", "Capture the Flag", "Slayer", "Stronghold"]; // Include Stronghold
             const randomGameMode = pickRandomGameMode(gameModes);
