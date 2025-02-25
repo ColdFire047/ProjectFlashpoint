@@ -157,23 +157,7 @@ Newest
     border: 0px solid white; /* White border for visibility */
     background-color: #1a2a3a; /* Default background color for non-Stronghold modes */
 }
-
-/* Triangle design using ::before pseudo-element */
-.respawn-point::before {
-    content: ''; /* Required for pseudo-element */
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    width: 50px; /* Width of the bounding box */
-    height: 50px; /* Height of the bounding box */
-    background-color: var(--respawn-color, #ffffff); /* Default to white */
-    clip-path: polygon(50% 60%, 0% 100%, 100% 100%); /* Triangle pointing down */
-    transform: translate(-50%, -50%) rotate(var(--chevron-rotation, 0deg)); /* Rotate based on position */
-    transform-origin: center; /* Rotate around the center of the square */
-    z-index: 1; /* Ensure it appears behind text */
-}
-        }
-      /* Initial state for buttons */
+/* Initial state for buttons */
         #randomise-button {
             display: inline-block;
         }
