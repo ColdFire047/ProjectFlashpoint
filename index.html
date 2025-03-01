@@ -242,8 +242,8 @@ button { bottom: 10px; padding: 10px; }
             <button type="button" onclick="selectGameMode('Slayer')" aria-label="Select Slayer Mode">Slayer</button>
             <button type="button" onclick="selectGameMode('Capture the Flag')" aria-label="Select Capture the Flag Mode">Capture the Flag</button>
             <button type="button" onclick="selectGameMode('Oddball')" aria-label="Select Oddball Mode">Oddball</button>
-            <button type="button" onclick="selectGameMode('Stockpile')" aria-label="Select Stockpile Mode">Stockpile</button>
             <button type="button" onclick="selectGameMode('Stronghold')" aria-label="Select Stronghold Mode">Stronghold</button>
+            <button type="button" onclick="selectGameMode('Stockpile')" aria-label="Select Stockpile Mode">Stockpile *WIP*</button>
         </div>
     </div>
     <script>
@@ -311,7 +311,7 @@ button { bottom: 10px; padding: 10px; }
             return " ";
         }
 
-            // Applies visual styles for the Slayer game mode
+ // Applies visual styles for the Slayer game mode
 function applySlayerColors(cell, row, col) {
     // Blue Team Deployment Zone
     if (row === 7 && (col >= 0 && col <= 3)) {
