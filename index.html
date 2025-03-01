@@ -316,12 +316,14 @@ function applySlayerColors(cell, row, col) {
     // Blue Team Deployment Zone
     if (row === 7 && (col >= 0 && col <= 3)) {
         cell.style.backgroundColor = "#4682B4"; // SteelBlue
-        cell.style.color = "white";
+        cell.style.color = "#4682B4"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
     // Red Team Deployment Zone
     if (row === 0 && (col >= 4 && col <= 7)) {
         cell.style.backgroundColor = "#FF6347"; // Tomato
-        cell.style.color = "white";
+        cell.style.color = "#FF6347"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
     // Weapon Spawns
     if ((col === 1 && row === 4) || (col === 2 && row === 2) || 
@@ -349,12 +351,14 @@ function applyCaptureTheFlagColors(cell, row, col) {
     // Blue Team Deployment Zone
     if (row === 7) {
         cell.style.backgroundColor = "#4682B4"; // SteelBlue
-        cell.style.color = "white";
+        cell.style.color = "#4682B4"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
     // Red Team Deployment Zone
     if (row === 0) {
         cell.style.backgroundColor = "#FF6347"; // Tomato
-        cell.style.color = "white";
+        cell.style.color = "#FF6347"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
     // Weapon Spawns
     if ((col === 2 && row === 3) || (col === 2 && row === 5) || 
@@ -392,14 +396,16 @@ function applyOddballColors(cell, row, col) {
         (row === 6 && (col === 0 || col === 1)) ||
         (row === 5 && col === 0)) {
         cell.style.backgroundColor = "#4682B4"; // SteelBlue
-        cell.style.color = "white";
+        cell.style.color = "#4682B4"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
     // Red Team Deployment Zone
     if ((row === 0 && (col === 5 || col === 6 || col === 7)) ||
         (row === 1 && (col === 6 || col === 7)) ||
         (row === 2 && col === 7)) {
         cell.style.backgroundColor = "#FF6347"; // Tomato
-        cell.style.color = "white";
+        cell.style.color = "#FF6347"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
     // Weapon Spawns
     if ((col === 2 && row === 2) || (col === 2 && row === 4) || 
@@ -432,14 +438,16 @@ function applyStrongholdColors(cell, row, col) {
     // Red Team Deployment Zone
     if ((row === 0 && (col >= 0 && col <= 3)) || // Row 1, Columns 1–4
         (col === 0 && (row >= 0 && row <= 3))) { // Column 1, Rows 1–4
-        cell.style.backgroundColor = "#FF6347"; // Tomato (Red Team)
-        cell.style.color = "white";
+        cell.style.backgroundColor = "#FF6347"; // Tomato
+        cell.style.color = "#FF6347"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
-    // Blue Team Deployment Zone (Diagonally Symmetrical)
+    // Blue Team Deployment Zone
     if ((row === 7 && (col >= 4 && col <= 7)) || // Row 8, Columns 5–8
         (col === 7 && (row >= 4 && row <= 7))) { // Column 8, Rows 5–8
-        cell.style.backgroundColor = "#4682B4"; // SteelBlue (Blue Team)
-        cell.style.color = "white";
+        cell.style.backgroundColor = "#4682B4"; // SteelBlue
+        cell.style.color = "#4682B4"; // Invisible marker color matches background
+        cell.innerHTML = "I"; // Invisible marker
     }
 
     // Weapon Spawns
